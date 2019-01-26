@@ -76,7 +76,6 @@ const EXPECTED_OBJECT = {
   "width": "auto",
 };
 
-
 console.assert(
   JSON.stringify(EXPECTED_OBJECT) === JSON.stringify(convertToObject(stylesString)),
   'Object is not equal to expected value'
