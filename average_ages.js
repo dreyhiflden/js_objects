@@ -59,8 +59,6 @@ function getAverageMenAge(people) {
     });
 }
 
-console.log(getAverageMenAge(ANCESTRY_FILE));
-
 function getAverageWomenAge(people) {
   return people
     .filter(i => i['sex'] === 'f')
@@ -71,10 +69,7 @@ function getAverageWomenAge(people) {
     });
 }
 
-console.log(getAverageWomenAge(ANCESTRY_FILE));
-
 function getAverageDiff(people) {
-
   let arrWithMothers = people.filter(i => i['mother'] !== null);
   let arrDifferences = [];
 
@@ -96,9 +91,6 @@ function getAverageDiff(people) {
       return (index === arr.length - 1) ? getSum / arr.length : getSum;
     });
 }
-
-console.log(getAverageDiff(ANCESTRY_FILE));
-
 
 let actualMen = getAverageMenAge(ANCESTRY_FILE);
 let expectedMen = 62;
