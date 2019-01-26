@@ -78,14 +78,17 @@ function getAverageDiff(people) {
   let arrWithMothers = people.filter(i => i['mother'] !== null);
   let arrDifferences = [];
 
-  for (let i = 0; i < arrWithMothers.length; i++) {
-    let mother = arrWithMothers[i]['mother'];
-    for (let j = 0; j < arrWithMothers.length; j++) {
-      if (arrWithMothers[j]['name'] === mother) {
-        arrDifferences.push(arrWithMothers[i]['born'] - arrWithMothers[j]['born']);
+  arrWithMothers
+    .map((item, index, array) => {
+    let mother = arrWithMothers[index]['mother'];
+
+    array
+      .map((obj) => {
+      if (obj['name'] === mother) {
+        arrDifferences.push(arrWithMothers[index]['born'] - obj['born']);
       }
-    }
-  }
+    })
+  });
 
   return arrDifferences
     .reduce((acc, cur, index, arr) => {
