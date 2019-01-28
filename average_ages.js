@@ -56,7 +56,7 @@ function getAverageMenAge(people) {
     .reduce((acc, cur, index, arr) => {
       let getSum = acc + cur;
       return (index === arr.length-1) ? getSum / arr.length : getSum;
-    });
+    }, 0);
 }
 
 function getAverageWomenAge(people) {
@@ -89,8 +89,39 @@ function getAverageDiff(people) {
     .reduce((acc, cur, index, arr) => {
       let getSum = acc + cur;
       return (index === arr.length - 1) ? getSum / arr.length : getSum;
-    });
+    }, 0);
 }
+
+function getCenturiesStats(people) {
+  let stats = {};
+
+  for (let i = 0; i < people.length; i++) {
+    pushToObject(people[i]);
+  }
+
+  function getCentury(arrayItem) {
+    return Math.ceil(arrayItem['died'] / 100);
+  }
+
+  function pushToObject(arrayItem) {
+    return stats[getCentury(arrayItem)] = {
+    };
+  }
+
+  for(let key in stats) {
+    let filtered = people.filter(i => (Math.ceil(i['died'] / 100)) === parseInt(key, 10));
+
+    stats[key] = {
+      getAverageMenAge: getAverageMenAge(filtered) ? getAverageMenAge(filtered) : 'Нет мужиков в этом столетии',
+      averageDiff: getAverageDiff(filtered),
+      getAverageWomenAge: getAverageWomenAge(filtered),
+    }
+  }
+
+  return stats;
+}
+
+console.log(getCenturiesStats(ANCESTRY_FILE));
 
 let actualMen = getAverageMenAge(ANCESTRY_FILE);
 let expectedMen = 62;
