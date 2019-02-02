@@ -36,15 +36,14 @@ const stylesString = `
  * значения - строки
  */
 function convertToObject(sourceString) {
-  const resultObject = {};
-
-  sourceString
+  return sourceString
     .split(';')
     .map(i => i.trim().split(': '))
     .filter(i => i[0].length !== 0)
-    .map(i => resultObject[i[0]] = i[1]);
-
-  return resultObject;
+    .reduce((obj, i) => {
+      obj[i[0]] = i[1];
+      return obj;
+    }, {});
 }
 
 const EXPECTED_OBJECT = {
