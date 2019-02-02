@@ -323,9 +323,9 @@ const ANCESTRY_FILE = [
 // выполните выше указанные подсчеты для каждого из столетий Назначаем столетию людей,
 // беря их год смерти, деля его на 100 и округляя: Math.ceil(person.died / 100).
 
-function getAverageMenAge(people) {
+function getAverage(people, gender) {
   return people
-    .filter(i => i.sex === 'm')
+    .filter(i => i.sex === gender)
     .map(i => i.died - i.born)
     .reduce((acc, cur, index, arr) => {
       const getSum = acc + cur;
@@ -333,14 +333,12 @@ function getAverageMenAge(people) {
     }, 0);
 }
 
+function getAverageMenAge(people) {
+  return getAverage(people, 'm');
+}
+
 function getAverageWomenAge(people) {
-  return people
-    .filter(i => i.sex === 'f')
-    .map(i => i.died - i.born)
-    .reduce((acc, cur, index, arr) => {
-      const getSum = acc + cur;
-      return (index === arr.length - 1) ? getSum / arr.length : getSum;
-    });
+  return getAverage(people, 'f');
 }
 
 function getAverageDiff(people) {
@@ -351,12 +349,11 @@ function getAverageDiff(people) {
     .map((item, index, array) => {
       const mother = arrWithMothers[index].mother;
 
-      array
-        .map((obj) => {
-          if (obj.name === mother) {
-            arrDifferences.push(arrWithMothers[index].born - obj.born);
-          }
-        });
+      array.forEach(obj => {
+        if (obj.name === mother) {
+          arrDifferences.push(item.born - obj.born);
+        }
+      });
     });
 
   return arrDifferences
@@ -395,7 +392,7 @@ function getCenturiesStats(people) {
   return stats;
 }
 
-console.log(getCenturiesStats(ANCESTRY_FILE));
+// console.log(getCenturiesStats(ANCESTRY_FILE));
 
 const actualMen = getAverageMenAge(ANCESTRY_FILE);
 const expectedMen = 62;
