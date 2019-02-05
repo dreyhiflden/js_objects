@@ -342,12 +342,11 @@ function getAverageWomenAge(people) {
 }
 
 function getAverageDiff(people) {
-  const arrWithMothers = people.filter(i => i.mother !== null);
   const arrDifferences = [];
 
-  arrWithMothers
+  people
     .map((item, index, array) => {
-      const mother = arrWithMothers[index].mother;
+      const mother = item.mother;
 
       array.forEach(obj => {
         if (obj.name === mother) {
@@ -392,7 +391,7 @@ function getCenturiesStats(people) {
   return stats;
 }
 
-// console.log(getCenturiesStats(ANCESTRY_FILE));
+console.log(getCenturiesStats(ANCESTRY_FILE));
 
 const actualMen = getAverageMenAge(ANCESTRY_FILE);
 const expectedMen = 62;
