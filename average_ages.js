@@ -342,10 +342,9 @@ function getAverageWomenAge(people) {
 }
 
 function getAverageDiff(people) {
-  const arrWithMothers = people.filter(i => i.mother !== null);
   const arrDifferences = [];
 
-  arrWithMothers
+  people
     .map((item, index, array) => {
       const mother = item.mother;
 
